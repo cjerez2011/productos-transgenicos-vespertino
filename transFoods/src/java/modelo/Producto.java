@@ -12,6 +12,12 @@ public class Producto implements Serializable {
     public static final int MARCA = 1;
     public static final int CATEGORIA= 2;
     public static final int TRANSGENICO = 3;
+    
+     public Producto(Marca marca, CategoriaAlimento categoria, boolean transgenico) {
+        this.marca = marca;
+        this.categoria = categoria;
+        this.transgenico = transgenico;
+    }
 
     public Producto(int id, Marca marca, CategoriaAlimento categoria, boolean transgenico) {
         this.id = id;
@@ -20,6 +26,10 @@ public class Producto implements Serializable {
         this.transgenico = transgenico;
         
         
+    }
+
+    public Producto(String marca, String categoria, String transgenico) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getId() {
