@@ -7,6 +7,8 @@ import java.util.List;
 public class DAO {
     private Conexion con;
     
+    private List<Producto> productos;
+    
     public DAO() throws SQLException{
        con= new Conexion("localhost","transgenicos" ,"root", "");
     }
@@ -22,6 +24,20 @@ public class DAO {
 //        con.sentencia = con.conexion.createStatement();
 //        con.sentencia.execute(insert);
 //        con.sentencia.close();
+
+    public void crearProducto(Producto productoNuevo) throws SQLException {
+         String insert = "insert into producto " 
+                 + "values ("
+                 + "null,"
+                 +"'"+productoNuevo.getMarca()+"',"
+                +"'"+productoNuevo.getCategoria()+"',"
+                +"'"+productoNuevo.isTransgenico()+"')";
+         
+         
+                con.sentencia = con.conexion.createStatement();
+                con.sentencia.execute(insert);
+                con.sentencia.close();
+    }
                 
     }
     
