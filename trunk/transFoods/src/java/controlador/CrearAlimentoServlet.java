@@ -25,7 +25,7 @@ import modelo.Producto;
  * @author usuario
  */
 @WebServlet(name = "CrearAlimento", urlPatterns = {"/agregarAlimento.do"})
-public class CrearAlimento extends HttpServlet {
+public class CrearAlimentoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -77,7 +77,7 @@ public class CrearAlimento extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CrearAlimento.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearAlimentoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,7 +95,7 @@ public class CrearAlimento extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CrearAlimento.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearAlimentoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
