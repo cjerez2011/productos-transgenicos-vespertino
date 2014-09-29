@@ -2,11 +2,17 @@ package vista;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.DAO;
+import modelo.Producto;
 
 /**
  *
@@ -20,6 +26,9 @@ public class ListarAlimentosServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            DAO dao = new DAO();
+            List<Producto> productos = dao.getProductos();
           
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -28,8 +37,52 @@ public class ListarAlimentosServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1 align='center'>Listado Alimentos..</h1>");
+            
+            
+            
+             
+            
+            out.println("<form action='listarProducto.view' method='post'>");
+            
+            out.println("<input type='text' name='txtBuscarN' placeholder='Nombre del alimento'/>");
+            out.println("<input type='submit' value='Buscar'/></br>");
+            out.println("<input type='text' name='txtBuscarM' placeholder='Marca del alimento'/>");
+            out.println("<input type='submit' value='Buscar'/></br>");
+               
+               
+             
+                
+                    
+                out.println("</form>");
+                
+                
+                out.println("<table border='1'>");
+                
+                out.println("<tr>");
+                        out.println("<td>Producto</td>");
+                        out.println("<td>Marca</td>");
+                        out.println("<td></td>");
+                        out.println("<td></td>");
+                        out.println("<td></td>");
+                out.println("</tr>");      
+                
+                for(Producto p : productos){
+                        out.println("<tr>");
+                            out.println("<td>"+null+"</td>");
+                            out.println("<td>"+null+"</td>");
+                            out.println("<td>"+null+"</td>");
+                            out.println("<td>"+null+"</td>");
+                            out.println("<td>"+null+"</td>");
+                        out.println("</tr>");    
+                            
+                        
+                    }
+                out.println("</table>");
+                
             out.println("</body>");
             out.println("</html>");
+        } catch (SQLException ex) {
+            Logger.getLogger(ListarAlimentosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
