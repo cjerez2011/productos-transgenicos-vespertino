@@ -1,8 +1,8 @@
 package modelo;
 
-import java.io.Serializable;
 
-public class Producto implements Serializable {
+
+public class Producto{
     private int id;
     private String nombre;
     private Marca marca;
@@ -15,7 +15,8 @@ public class Producto implements Serializable {
     public static final int CATEGORIA= 3;
     public static final int TRANSGENICO = 4;
     
-     public Producto(Marca marca, CategoriaAlimento categoria, boolean transgenico) {
+     public Producto(String nombre,Marca marca, CategoriaAlimento categoria, boolean transgenico) {
+        this.nombre = nombre;
         this.marca = marca;
         this.categoria = categoria;
         this.transgenico = transgenico;
@@ -23,6 +24,7 @@ public class Producto implements Serializable {
 
     public Producto(int id, String nombre, Marca marca, CategoriaAlimento categoria, boolean transgenico) {
         this.id = id;
+        this.nombre = nombre;
         this.marca = marca;
         this.categoria = categoria;
         this.transgenico = transgenico;
@@ -30,10 +32,7 @@ public class Producto implements Serializable {
         
     }
 
-    public Producto(String marca, String categoria, String transgenico) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
     public int getId() {
         return id;
     }
@@ -74,5 +73,19 @@ public class Producto implements Serializable {
         this.transgenico = transgenico;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
+
+    @Override
+    public String toString() {
+        return nombre+" "+marca+" "+categoria+" "+transgenico;
+    }
+    
+   
 }
