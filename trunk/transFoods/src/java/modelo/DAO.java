@@ -10,7 +10,7 @@ public class DAO {
     private List<Producto> productos;
     
     public DAO() throws SQLException{
-       con= new Conexion("localhost","transgenicos" ,"root", "");
+       con= new Conexion("localhost","productoTransgenico" ,"root", "");
     }
     
 //    public void crearCelular(Celular nuevo) throws SQLException{
@@ -39,31 +39,34 @@ public class DAO {
                 con.sentencia.close();
     }
                 
-    }
     
     
     
     
-    
-//    public List<Celular> getCelulares() throws SQLException {
-//        List<Celular> celus = new ArrayList<Celular>();
+//    
+//    
+//    public List<Producto> getProductos() throws SQLException {
+//        List<Producto> productos = new ArrayList<Producto>();
 //
-//        String select = "select * from celular";
+//        String select = "select * from producto";
 //        con.sentencia = con.conexion.createStatement();
 //        con.tablaResultado = con.sentencia.executeQuery(select);
-//
+
 //        while (con.tablaResultado.next()) {
-//            celus.add(new Celular(
+//            productos.add(new Producto(
 //                    con.tablaResultado.getInt("id"),
-//                    con.tablaResultado.getString("marca"),
-//                    con.tablaResultado.getString("modelo"),
+//                    con.tablaResultado.getString("nombreProducto"),
+//                    con.tablaResultado.getBoolean("transgenico"),
 //                    con.tablaResultado.getInt("precio")
 //            ));
 //
 //        }
-//
+        
+        
+
 //        con.sentencia.close();
 //
 //        return celus;
 //    }
 //}
+    }
