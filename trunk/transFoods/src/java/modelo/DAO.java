@@ -14,7 +14,7 @@ public class DAO {
     public List<CategoriaAlimento>catAlimentos;
     
     public DAO() throws SQLException{
-       con= new Conexion("localhost","productoTransgenico" ,"root", "mysql");
+       con= new Conexion("localhost","productoTransgenico" ,"root", "");
        cargarCategorias();
        cargarMarcas();
     }
@@ -71,7 +71,7 @@ public class DAO {
                 int idCat = con.tablaResultado.getInt("idCategoria");
                 CategoriaAlimento cat = getCatAlimentos(idCat);
                 
-                Producto p = new Producto(nombre,trans,cat,marca);
+                Producto p = new Producto(nomb,trans,cat,marca);
                 listaFiltrada.add(p);
             }
             con.sentencia.close();
@@ -179,7 +179,32 @@ public class DAO {
            }else{
                return 0;
            }
-       }         
+       }    
+       
+        public List<Producto>getProductosMarca(String cboMarca){
+        List<Producto>listaFiltrada = new ArrayList<>();
+        try {
+            con.sentencia = con.conexion.createStatement();
+            String consulta = "select * from producto where idMarca = '"+cboMarca+"'";
+            con.tablaResultado = con.sentencia.executeQuery(consulta);
+            while(con.tablaResultado.next()){ 
+                String nomb = con.tablaResultado.getString("nombreProducto");
+                String trans = con.tablaResultado.getString("transgenico");
+                int idmarca = con.tablaResultado.getInt("idCategoria");
+                Marca marca = getMarcas(idmarca);
+                int idCat = con.tablaResultado.getInt("idCategoria");
+                CategoriaAlimento cat = getCatAlimentos(idCat);
+                
+                Producto p = new Producto(nomb,trans,cat,marca);
+                listaFiltrada.add(p);
+            }
+            con.sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaFiltrada;
+    }
+       
     }
     
     
