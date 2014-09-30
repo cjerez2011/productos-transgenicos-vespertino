@@ -21,7 +21,7 @@ public class DAO {
  
 
     public void crearProducto(Producto nuevo) throws SQLException {
-       String insert = "insert into producto"
+           String insert="insert into producto "
                 +"values("
                 +"null,"
                 +"'"+nuevo.getNombre()+"',"
