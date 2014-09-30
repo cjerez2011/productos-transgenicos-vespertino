@@ -4,6 +4,9 @@
     Author     : Fco
 --%>
 
+<%@page import="modelo.CategoriaAlimento"%>
+<%@page import="modelo.Marca"%>
+<%@page import="modelo.DAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,37 +29,44 @@
                         <input type='text' name='txtNombre' placeholder='Nombre Producto' required='required'/> 
                     </td>
                 </tr>
-                <tr>      
-                    <td>   
-                        <select name="txtMarca">
-                            <option value="--Marca--">--Marca--</option>
-                            <option value="1">Néstle</option>
-                            <option value="2">Calaf</option>
-                            <option value="3">CocaCola</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>      
-                    <td>   
-                        <select name="cboCategoria">
-                            <option value="--cat--">--Categoria--</option>
-                            <option value="1">Bebidas</option>
-                            <option value="2">Alimentos infantiles</option>
-                            <option value="3">Cereales</option>
-                            <option value="4">Chocolates y golosinas</option>
-                            <option value="5">Congelados y helados</option>
-                            <option value="6">Conservas</option>
-                            <option value="7">Snack's</option>
-                            <option value="8">Sopas en polvo</option>
-                        </select>
+                 <tr>
+                    <td>
+                        <input type="radio" name="cboTrans" value="si"/>Transgénico
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <select name="cboTrans">
-                            <option value="---">---</option>
-                            <option value="true">Transgénico</option>
-                            <option value="false">No transgénico</option>
+                        <input type="radio" name="cboTrans" value="no"/>No Transgénico
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                        <select name="cboCat">
+                            <%
+                                DAO dao = new DAO();
+                                dao.cargarCategorias();
+
+                                for (CategoriaAlimento m : dao.catAlimentos) {
+                                    out.println("<option value='" + m.getId() + "'>" + m.getNombre() + "</option>");
+                                }
+                            %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+
+
+
+                    <td>
+                        <select name="cboMarcas">
+                            <%
+                                dao.cargarMarcas();
+
+                                for (Marca m : dao.marcas) {
+                                    out.println("<option value='" + m.getId() + "'>" + m.getNombre() + "</option>");
+                                }
+                            %>
                         </select>
                     </td>
                 </tr>
@@ -78,3 +88,6 @@
         </form>
     </body>
 </html>
+
+
+

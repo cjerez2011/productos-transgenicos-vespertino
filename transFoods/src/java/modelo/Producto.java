@@ -7,7 +7,8 @@ public class Producto{
     private String nombre;
     private Marca marca;
     private CategoriaAlimento categoria;
-    private boolean transgenico;
+    private String transgenico;
+    private int bo;
     
     public static final int ID = 0;
     public static final int NOMBRE = 1;
@@ -15,21 +16,38 @@ public class Producto{
     public static final int CATEGORIA= 3;
     public static final int TRANSGENICO = 4;
     
-     public Producto(String nombre,Marca marca, CategoriaAlimento categoria, boolean transgenico) {
+     public Producto(String nombre,String transgenico,CategoriaAlimento categoria,Marca marca) {
         this.nombre = nombre;
-        this.marca = marca;
-        this.categoria = categoria;
         this.transgenico = transgenico;
+        this.categoria = categoria;
+        this.marca = marca;
+        
+      
     }
 
-    public Producto(int id, String nombre, Marca marca, CategoriaAlimento categoria, boolean transgenico) {
+    public Producto(int id, String nombre,String transgenico,CategoriaAlimento categoria,Marca marca) {
         this.id = id;
         this.nombre = nombre;
-        this.marca = marca;
-        this.categoria = categoria;
         this.transgenico = transgenico;
+        this.categoria = categoria;
+        this.marca = marca;
         
         
+    }
+
+    public Producto(String nombre, int bo, CategoriaAlimento categoria, Marca marca) {
+        this.nombre = nombre;
+        this.bo = bo;
+        this.categoria = categoria;
+        this.marca = marca;
+    }
+
+    public int getBo() {
+        return bo;
+    }
+
+    public void setBo(int bo) {
+        this.bo = bo;
     }
 
    
@@ -65,17 +83,18 @@ public class Producto{
         this.categoria = categoria;
     }
 
-    public boolean isTransgenico() {
+    public String getTransgenico() {
         return transgenico;
     }
 
-    public void setTransgenico(boolean transgenico) {
+    public void setTransgenico(String transgenico) {
         this.transgenico = transgenico;
     }
 
+    
     @Override
     public String toString() {
-        return nombre+" "+marca+" "+categoria+" "+transgenico;
+        return nombre+" "+transgenico+" "+categoria+" "+marca;
     }
     
    
