@@ -32,12 +32,25 @@ public class ListarAlimentosServlet extends HttpServlet {
             List<Producto>productos;
             String filtroXnombre = request.getParameter("txtFiltroNombre");
             String trans="";
+           String cboMarca=request.getParameter("cboMarca");
               
             if(filtroXnombre !=null){
                 productos = dao.getProductos4Name(filtroXnombre);
             }else{
                 productos = dao.getProductos();
             }
+            
+            
+            
+            
+            out.println("<h1>"+cboMarca+"</h1>");
+            
+            if(cboMarca !=null){
+                productos = dao.getProductosMarca(cboMarca);
+            }else{
+                productos = dao.getProductos();
+            }
+            
                 
             for(Producto p : productos){
                 if(p.getNombre().equalsIgnoreCase(filtroXnombre)){
@@ -66,6 +79,7 @@ public class ListarAlimentosServlet extends HttpServlet {
             out.println("<select name='cboMarca'>");
              for(Marca m : dao.marcas){
                     out.println("<option value='"+m.getId()+"'>"+m.getNombre()+"</option>");
+                    
                 }
             out.println("</select>");
             out.println("<input type='submit' value='Buscar por marca'/>");
@@ -92,6 +106,15 @@ public class ListarAlimentosServlet extends HttpServlet {
             out.println("<th>Categoria</th>");
             out.println("<th>Marca</th>");
             out.println("</tr>");
+            
+            
+            
+            
+            
+            
+//            productos=dao.getProductosMarca(cboMarca);
+            
+            
             
             for(Producto c : productos){
                 out.println("<tr>");
