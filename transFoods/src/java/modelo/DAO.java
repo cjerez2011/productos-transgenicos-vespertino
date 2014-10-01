@@ -14,7 +14,7 @@ public class DAO {
     public List<CategoriaAlimento>catAlimentos;
     
     public DAO() throws SQLException{
-       con= new Conexion("localhost","productoTransgenico" ,"root", "mysql");
+       con= new Conexion("localhost","productoTransgenico" ,"root", "");
        cargarCategorias();
        cargarMarcas();
     }
@@ -84,7 +84,12 @@ public class DAO {
         List<Producto>listaFiltrada = new ArrayList<>();
         try {
             con.sentencia = con.conexion.createStatement();
-            String consulta = "select * from producto where idMarca = '"+ide+"'";
+            String consulta = "select * from marcaproducto where nombreMarca LIKE '%"+ide+"%'";
+//            String consulta = "select producto.nombreProducto,producto.transgenico,marcaProducto.nombreMarca\n" +
+//"from producto,marcaProducto\n" +
+//"where marcaProducto.nombreMarca like '"+ide+"'\n" +
+//"and producto.idMarca = marcaproducto.idMarca;";
+           // String consulta = "select * from producto where idMarca = '"+ide+"'";
 //            String consulta = "select producto.nombreProducto,producto.transgenico,categoriaAlimento.nombreProducto,marcaProducto.nombreMarca\n" +
 //"from producto,marcaProducto,categoriaAlimento\n" +
 //"where marcaProducto.nombreMarca like '%"+ide+"%'\n" +
