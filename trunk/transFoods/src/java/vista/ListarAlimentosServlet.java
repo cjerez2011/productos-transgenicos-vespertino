@@ -40,16 +40,29 @@ public class ListarAlimentosServlet extends HttpServlet {
             int contadorTrans=0;
             int contadorNotrans=0;
             
+//            if(filtroXnombre !=null){
+//                productos = dao.getProductos4Name(filtroXnombre);
+//            }else if(filtroXMarca !=null){
+//                productos = dao.getProductos4Marca(filtroXMarca);
+//            }else{
+//                productos = dao.getProductos();
+//            }
+                
             if(filtroXnombre !=null){
-                productos = dao.getProductos4Name(filtroXnombre);
-            }else if(filtroXMarca !=null){
+               productos = dao.getProductos4Name(filtroXnombre);
+           }else{
+            productos = dao.getProductos();
+            }
+            
+            if(filtroXMarca !=null){
                  i = Integer.valueOf(filtroXMarca);
                 System.out.println(i);
                 productos = dao.getProductos4Marca(i);
             }else{
-                productos = dao.getProductos();
+              productos = dao.getProductos();
             }
                 
+            
             for(Producto p : productos){
                 if(p.getNombre().equalsIgnoreCase(filtroXnombre)){
                   if(p.getTransgenico().equalsIgnoreCase("si")){
