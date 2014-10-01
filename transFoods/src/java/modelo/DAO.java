@@ -14,7 +14,7 @@ public class DAO {
     public List<CategoriaAlimento>catAlimentos;
     
     public DAO() throws SQLException{
-       con= new Conexion("localhost","productoTransgenico" ,"root", "");
+       con= new Conexion("localhost","productoTransgenico" ,"root", "mysql");
        cargarCategorias();
        cargarMarcas();
     }
@@ -66,12 +66,12 @@ public class DAO {
             while(con.tablaResultado.next()){
                 String nomb = con.tablaResultado.getString("nombreProducto");
                 String trans = con.tablaResultado.getString("transgenico");
-                int idmarca = con.tablaResultado.getInt("idCategoria");
-                Marca marca = getMarcas(idmarca);
                 int idCat = con.tablaResultado.getInt("idCategoria");
                 CategoriaAlimento cat = getCatAlimentos(idCat);
+                int idmarca = con.tablaResultado.getInt("idMarca");
+                Marca marca = getMarcas(idmarca);
                 
-                Producto p = new Producto(nomb,trans,cat,marca);
+                Producto p = new Producto(nombre,trans,cat,marca);
                 listaFiltrada.add(p);
             }
             con.sentencia.close();
@@ -80,21 +80,26 @@ public class DAO {
         }
         return listaFiltrada;
     }
-    public List<Producto>getProductos4Categoria(int ide){
+    public List<Producto>getProductos4Marca(String ide){
         List<Producto>listaFiltrada = new ArrayList<>();
         try {
             con.sentencia = con.conexion.createStatement();
-            String consulta = "select * from producto where idCategoria LIKE '%"+ide+"%'";
+//            String consulta = "select * from producto where idCategoria LIKE '%"+ide+"%'";
+            String consulta = "select producto.nombreProducto,producto.transgenico,marcaProducto.nombreMarca\n" +
+"from producto,marcaProducto\n" +
+"where marcaProducto.nombreMarca like '"+ide+"'\n" +
+"and producto.idMarca = marcaproducto.idMarca;";
             con.tablaResultado = con.sentencia.executeQuery(consulta);
             while(con.tablaResultado.next()){ 
                 String nomb = con.tablaResultado.getString("nombreProducto");
                 String trans = con.tablaResultado.getString("transgenico");
-                int idmarca = con.tablaResultado.getInt("idCategoria");
-                Marca marca = getMarcas(idmarca);
-                int idCat = con.tablaResultado.getInt("idCategoria");
-                CategoriaAlimento cat = getCatAlimentos(idCat);
+//                int idCat = con.tablaResultado.getInt("idCategoria");
+//                CategoriaAlimento cat = getCatAlimentos(idCat);                
+                String marca = con.tablaResultado.getString("nombreMarca");
+//                Marca marca = getMarcas(idmarca);
                 
-                Producto p = new Producto(nomb,trans,cat,marca);
+                Producto p = new Producto(nomb,trans,marca);
+                System.out.println(p);
                 listaFiltrada.add(p);
             }
             con.sentencia.close();
@@ -179,32 +184,7 @@ public class DAO {
            }else{
                return 0;
            }
-       }    
-       
-        public List<Producto>getProductosMarca(String cboMarca){
-        List<Producto>listaFiltrada = new ArrayList<>();
-        try {
-            con.sentencia = con.conexion.createStatement();
-            String consulta = "select * from producto where idMarca = '"+cboMarca+"'";
-            con.tablaResultado = con.sentencia.executeQuery(consulta);
-            while(con.tablaResultado.next()){ 
-                String nomb = con.tablaResultado.getString("nombreProducto");
-                String trans = con.tablaResultado.getString("transgenico");
-                int idmarca = con.tablaResultado.getInt("idCategoria");
-                Marca marca = getMarcas(idmarca);
-                int idCat = con.tablaResultado.getInt("idCategoria");
-                CategoriaAlimento cat = getCatAlimentos(idCat);
-                
-                Producto p = new Producto(nomb,trans,cat,marca);
-                listaFiltrada.add(p);
-            }
-            con.sentencia.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return listaFiltrada;
-    }
-       
+       }         
     }
     
     

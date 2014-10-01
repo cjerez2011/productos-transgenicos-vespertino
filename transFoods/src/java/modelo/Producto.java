@@ -9,6 +9,7 @@ public class Producto{
     private CategoriaAlimento categoria;
     private String transgenico;
     private int bo;
+    private String marcas;
     
     public static final int ID = 0;
     public static final int NOMBRE = 1;
@@ -35,11 +36,11 @@ public class Producto{
         
     }
 
-    public Producto(String nombre, int bo, CategoriaAlimento categoria, Marca marca) {
+    public Producto(String nombre, String transgenico, String marca) {
         this.nombre = nombre;
-        this.bo = bo;
-        this.categoria = categoria;
-        this.marca = marca;
+        this.transgenico = transgenico;
+        this.marcas = marca;
+        
     }
 
     public int getBo() {
