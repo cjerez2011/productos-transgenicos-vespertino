@@ -80,26 +80,25 @@ public class DAO {
         }
         return listaFiltrada;
     }
-    public List<Producto>getProductos4Marca(String ide){
+    public List<Producto>getProductos4Marca(int ide){
         List<Producto>listaFiltrada = new ArrayList<>();
         try {
             con.sentencia = con.conexion.createStatement();
-//            String consulta = "select * from producto where idCategoria LIKE '%"+ide+"%'";
-            String consulta = "select producto.nombreProducto,producto.transgenico,marcaProducto.nombreMarca\n" +
-"from producto,marcaProducto\n" +
-"where marcaProducto.nombreMarca like '"+ide+"'\n" +
-"and producto.idMarca = marcaproducto.idMarca;";
+            String consulta = "select * from producto where idMarca = '"+ide+"'";
+//            String consulta = "select producto.nombreProducto,producto.transgenico,categoriaAlimento.nombreProducto,marcaProducto.nombreMarca\n" +
+//"from producto,marcaProducto,categoriaAlimento\n" +
+//"where marcaProducto.nombreMarca like '%"+ide+"%'\n" +
+//"and producto.idMarca = marcaproducto.idMarca";
             con.tablaResultado = con.sentencia.executeQuery(consulta);
             while(con.tablaResultado.next()){ 
                 String nomb = con.tablaResultado.getString("nombreProducto");
                 String trans = con.tablaResultado.getString("transgenico");
-//                int idCat = con.tablaResultado.getInt("idCategoria");
-//                CategoriaAlimento cat = getCatAlimentos(idCat);                
-                String marca = con.tablaResultado.getString("nombreMarca");
-//                Marca marca = getMarcas(idmarca);
+                int idCat = con.tablaResultado.getInt("idCategoria");
+                CategoriaAlimento cat = getCatAlimentos(idCat);
+                int idmarca = con.tablaResultado.getInt("idMarca");
+                Marca marca = getMarcas(idmarca);
                 
-                Producto p = new Producto(nomb,trans,marca);
-                System.out.println(p);
+                Producto p = new Producto(nomb,trans,cat,marca);
                 listaFiltrada.add(p);
             }
             con.sentencia.close();

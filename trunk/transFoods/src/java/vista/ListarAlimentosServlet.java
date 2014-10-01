@@ -32,12 +32,20 @@ public class ListarAlimentosServlet extends HttpServlet {
             List<Producto>productos;
             String filtroXnombre = request.getParameter("txtFiltroNombre");
             String filtroXMarca = request.getParameter("cboMarca");
+//            int filtroXMarca = Integer.parseInt(request.getParameter("cboMarca"));
+//            String parse = Integer.toString(filtroXMarca);
             String trans="";
-              
+            String marca="";
+            int i=0;
+            int contadorTrans=0;
+            int contadorNotrans=0;
+            
             if(filtroXnombre !=null){
                 productos = dao.getProductos4Name(filtroXnombre);
             }else if(filtroXMarca !=null){
-                productos = dao.getProductos4Marca(filtroXMarca);
+                 i = Integer.valueOf(filtroXMarca);
+                System.out.println(i);
+                productos = dao.getProductos4Marca(i);
             }else{
                 productos = dao.getProductos();
             }
@@ -45,11 +53,24 @@ public class ListarAlimentosServlet extends HttpServlet {
             for(Producto p : productos){
                 if(p.getNombre().equalsIgnoreCase(filtroXnombre)){
                   if(p.getTransgenico().equalsIgnoreCase("si")){
-                      trans = "PRODUCTO QUE MATA";
+                      trans = "ALIMENTO ALTERADO GENÉTICAMENTE";
                   }else{
-                      trans = "PRODUCTO SANO";
+                      trans = "ALIMENTO LIBRE DE TRANSGÉNICOS";
                   }
                 }
+            }
+            
+            //MOSTRAR CANTIDAD DE PRODUCTOS TRANS-NOTRANS POR MARCA
+            for(Producto pp : productos){
+                if(pp.getMarca().getId() == i){
+                    marca = pp.getMarca().getNombre();
+                    if(pp.getTransgenico().equalsIgnoreCase("si")){
+                        contadorTrans++;
+                    }else{
+                        contadorNotrans++;
+                    }
+                }
+                
             }
             
             out.println("<!DOCTYPE html>");
@@ -67,31 +88,40 @@ public class ListarAlimentosServlet extends HttpServlet {
             
             out.println("<form action='listar.view' method='post'>");
             out.println("<input type='text' name='txtFiltroNombre' placeholder='Nombre Producto'/>");
-            out.println("<input type='submit' value='Buscar por nombre'/>");
+            out.println("<input type='submit' value='Buscar por nombre' id='btnBuscar'/></br>");
             out.println("</form>");
             
             out.println("<form action='listar.view' method='post'>");
             out.println("<select name='cboMarca'>");
              for(Marca m : dao.marcas){
-                    out.println("<option value='"+m.getNombre()+"'>"+m.getNombre()+"</option>");
+                    out.println("<option value='"+m.getId()+"'>"+m.getNombre()+"</option>");
                     
                 }
             out.println("</select>");
-            out.println("<input type='submit' value='Buscar por marca'/>");
+            out.println("<input type='submit' value='Buscar por marca' id='btnBuscar'/></br>");
             out.println("</form>");
             
+            out.println("<form action='listar.view' method='post'>");
+            out.println("<input type='submit' value='Cargar todos' id='btnBuscar'/>");
+            out.println("</form>");
             
             if(filtroXnombre !=null){
               
-                if(trans.equalsIgnoreCase("PRODUCTO QUE MATA")){
+                if(trans.equalsIgnoreCase("ALIMENTO ALTERADO GENÉTICAMENTE")){
                    out.println("<h3 class='quest'>Resultados por nombre: "+filtroXnombre+" / "+trans+"</h3>");
                    out.println("<img src='img/manzanita.png'>");
                 }else{
                    out.println("<h3 class='quest'>Resultados por nombre: "+filtroXnombre+" / "+trans+"</h3>");
                    out.println("<img src='img/perita.png'>");   
                 }
+            }else if(filtroXMarca !=null){
+                        if(contadorTrans>contadorNotrans){
+                             out.println("<h3 class='quest'>Resultados por: "+marca+" / Marca Malvada / "+contadorTrans+"</h3>");
+                        }else{
+                              out.println("<h3 class='quest'>Resultados por: "+marca+" / Marca Buenuna / "+contadorNotrans+"</h3>");
+                        }
             }else{
-                productos = dao.getProductos();
+                 out.println("<h3 class='quest'>:D</h3>");
             }
             
             out.println("<table align='center' class='tablaDatos'>");    

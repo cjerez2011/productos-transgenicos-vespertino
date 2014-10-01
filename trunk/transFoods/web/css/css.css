@@ -56,6 +56,16 @@ header{
 p{
     padding-top: 20px;
 }
+#btnBuscar{
+        text-align: center;
+	display: block;
+	width: 120px;
+	height: 30px;
+	border: none;
+	background-color: #04B404;
+	color: #FFF;
+        text-decoration:none; 
+}
 #btn{
         text-align: center;
 	display: block;
@@ -83,6 +93,12 @@ p{
        
 }
 
+#btnBuscar:hover{
+        text-align: center;
+	text-decoration:none;
+	background-color: #088A08;
+        
+}
 #btnVolver:hover{
         text-align: center;
 	text-decoration:none;
