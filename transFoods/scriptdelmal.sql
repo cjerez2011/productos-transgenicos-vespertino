@@ -625,13 +625,16 @@ from producto, marcaProducto,categoriaalimento
 where producto.idCategoria = categoriaalimento.idCategoria and producto.idMarca = marcaproducto.idMarca;
 
 select * from producto where nombreProducto LIKE '%Bilz%';
+
 select  producto.nombreProducto, marcaProducto.nombreMarca, producto.transgenico
 from producto, marcaProducto 
 where producto.idMarca = marcaproducto.idMarca  LIKE '%Quaker%';
 
-select producto.nombreProducto,producto.transgenico,marcaProducto.nombreMarca
-from producto,marcaProducto
+select producto.nombreProducto,producto.transgenico,categoriaAlimento.nombreProducto,marcaProducto.nombreMarca
+from producto,marcaProducto,categoriaAlimento
 where marcaProducto.nombreMarca like '%Quaker%'
 and producto.idMarca = marcaproducto.idMarca;
+
+select * from producto where idMarca = 20;
 
 drop database productoTransgenico;
