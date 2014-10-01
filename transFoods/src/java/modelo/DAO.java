@@ -84,7 +84,7 @@ public class DAO {
         List<Producto>listaFiltrada = new ArrayList<>();
         try {
             con.sentencia = con.conexion.createStatement();
-            String consulta = "select * from marcaproducto where nombreMarca LIKE '%"+ide+"%'";
+            String consulta = "select * from marcaproducto where idMarca LIKE '%"+ide+"%'";
 //            String consulta = "select producto.nombreProducto,producto.transgenico,marcaProducto.nombreMarca\n" +
 //"from producto,marcaProducto\n" +
 //"where marcaProducto.nombreMarca like '"+ide+"'\n" +
