@@ -31,26 +31,16 @@ public class ListarAlimentosServlet extends HttpServlet {
             DAO dao = new DAO();
             List<Producto>productos;
             String filtroXnombre = request.getParameter("txtFiltroNombre");
+            String filtroXMarca = request.getParameter("cboMarca");
             String trans="";
-           String cboMarca=request.getParameter("cboMarca");
               
             if(filtroXnombre !=null){
                 productos = dao.getProductos4Name(filtroXnombre);
+            }else if(filtroXMarca !=null){
+                productos = dao.getProductos4Marca(filtroXMarca);
             }else{
                 productos = dao.getProductos();
             }
-            
-            
-            
-            
-            out.println("<h1>"+cboMarca+"</h1>");
-            
-            if(cboMarca !=null){
-                productos = dao.getProductosMarca(cboMarca);
-            }else{
-                productos = dao.getProductos();
-            }
-            
                 
             for(Producto p : productos){
                 if(p.getNombre().equalsIgnoreCase(filtroXnombre)){
@@ -65,10 +55,15 @@ public class ListarAlimentosServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListarAlimentosServlet</title>");            
+            out.println("<link rel='stylesheet' type='text/css' href='css/css.css'/>");
+            out.println("<title>'Transparencia de los alimentos'</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1 align='center'>Listado Alimentos..</h1>");
+            out.println("<header>");
+            out.println("<img src='img/manza.png'>");
+            out.println("</header>");
+           
+            out.println("<h1 class='titulo'>Listado Alimentos..</h1>");
             
             out.println("<form action='listar.view' method='post'>");
             out.println("<input type='text' name='txtFiltroNombre' placeholder='Nombre Producto'/>");
@@ -78,7 +73,7 @@ public class ListarAlimentosServlet extends HttpServlet {
             out.println("<form action='listar.view' method='post'>");
             out.println("<select name='cboMarca'>");
              for(Marca m : dao.marcas){
-                    out.println("<option value='"+m.getId()+"'>"+m.getNombre()+"</option>");
+                    out.println("<option value='"+m.getNombre()+"'>"+m.getNombre()+"</option>");
                     
                 }
             out.println("</select>");
@@ -89,47 +84,46 @@ public class ListarAlimentosServlet extends HttpServlet {
             if(filtroXnombre !=null){
               
                 if(trans.equalsIgnoreCase("PRODUCTO QUE MATA")){
-                   out.println("<h3>Resultados por nombre: "+filtroXnombre+" / producto:"+trans+"</h3>");
+                   out.println("<h3 class='quest'>Resultados por nombre: "+filtroXnombre+" / "+trans+"</h3>");
                    out.println("<img src='img/manzanita.png'>");
                 }else{
-                   out.println("<h3>Resultados por nombre: "+filtroXnombre+" / producto:"+trans+"</h3>");
+                   out.println("<h3 class='quest'>Resultados por nombre: "+filtroXnombre+" / "+trans+"</h3>");
                    out.println("<img src='img/perita.png'>");   
                 }
             }else{
                 productos = dao.getProductos();
             }
             
-            out.println("<table align='center' border='1'>");    
+            out.println("<table align='center' class='tablaDatos'>");    
             out.println("<tr>");
-            out.println("<th>Nombre</th>");
-            out.println("<th>Transgenico</th>");
-            out.println("<th>Categoria</th>");
-            out.println("<th>Marca</th>");
+            out.println("<th class='titulosTabla'>Nombre</th>");
+            out.println("<th class='titulosTabla'>Estado Alimento</th>");
+            out.println("<th class='titulosTabla'>Categoria</th>");
+            out.println("<th class='titulosTabla'>Marca</th>");
             out.println("</tr>");
-            
-            
-            
-            
-            
-            
-//            productos=dao.getProductosMarca(cboMarca);
-            
-            
             
             for(Producto c : productos){
                 out.println("<tr>");
-                out.println("<td>" + c.getNombre() + "</td>");
+                out.println("<td class='datos'>" + c.getNombre() + "</td>");
                 if(c.getTransgenico().equalsIgnoreCase("si")){
-                     out.println("<td>Transgénico</td>");
+                     out.println("<td class='datos'>Transgénico</td>");
                 }else{
-                     out.println("<td>No Transgénico</td>");
+                     out.println("<td class='datos'>No Transgénico</td>");
                 }
-                out.println("<td>" + c.getCategoria() + "</td>");
-                out.println("<td>" + c.getMarca() + "</td>");
+                out.println("<td class='datos'>" + c.getCategoria() + "</td>");
+                out.println("<td class='datos'>" + c.getMarca() + "</td>");
                 out.println("</tr>");
             }
             out.println("</table>");
-            out.println("<a href='index.jsp'>Volver</a>");
+            out.println("<form action='index.jsp' method='post'>");
+            out.println("<table align='center'>");
+            out.println("<tr>");
+            out.println("<td>");
+            out.println("<input type='submit' value='Volver' id='btnVolver'/>");
+            out.println("</td>");
+            out.println("</tr>");
+            out.println("</table");
+            out.println("<form>");
             out.println("</body>");
             out.println("</html>");
         } catch (SQLException ex) {

@@ -10,16 +10,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='css/css.css'>
-        <title>JSP Page</title>
+        <title>Transparencia de los alimentos</title>
     </head>
     <body>
-        
+        <header>
+            <img src='img/manza.png'>
+        </header>
         <div id="contenedor">
         <form action='listar.view' method='post'>
             <table align='center'>
-                <tr>
+                 <tr>
                     <td>
-                        <h1 class='tituloIndex'>TRANSPARENCIA DE LOS ALIMENTOS</h1>
+                   <h2 class='titulo'>Transparencia de los Alimentos</h2>
                     </td>
                 </tr>
                 <tr>
@@ -61,8 +63,9 @@ Resistentes al herbicida glifosato (y conteniendo cantidades de uno de los pesti
         </div>
         <div id="footer">
             <p>
-                hola
+                Copyright © Cristian Jerez - Boris Ortiz - José Ortiz - Francisco Ponce
             </p>
+             
         </div>
     </body>
 </html>

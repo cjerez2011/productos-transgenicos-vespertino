@@ -13,12 +13,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='css/css.css'>
-        <title>JSP Page</title>
+        <title>Transparencia de los alimentos</title>
     </head>
     <body>
-        <h1 class='titulo'>Transparencia de los alimentos</h1>
+        <header>
+            <img src='img/manza.png'>
+        </header>
+        
+        <div id="contenedor">
         <form action='agregarAlimento.do' method='post'>
             <table align='center'>
+                 <tr>
+                    <td>
+                      <h1 class='titulo'>Transparencia de los alimentos</h1>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <h2 class='subtitulos'>Agrega un alimento..</h2>
@@ -86,6 +95,14 @@
                 </tr>
             </table>
         </form>
+        </div>
+                        
+        <div id="footer">
+            <p>
+                Copyright © Cristian Jerez - Boris Ortiz - José Ortiz - Francisco Ponce
+            </p>
+             
+        </div>
     </body>
 </html>
 

@@ -614,7 +614,7 @@ insert into producto values(null,'Sopas para uno','no',8,62);
 insert into producto values(null,'Sopas para uno','no',8,80);
 insert into producto values(null,'Sopas para uno','no',8,64);
 
-insert into producto values(null,'Prueba',true,2,1);
+insert into producto values(null,'Prueba','no','1','1');
 
 select * from producto;
 
@@ -625,4 +625,13 @@ from producto, marcaProducto,categoriaalimento
 where producto.idCategoria = categoriaalimento.idCategoria and producto.idMarca = marcaproducto.idMarca;
 
 select * from producto where nombreProducto LIKE '%Bilz%';
+select  producto.nombreProducto, marcaProducto.nombreMarca, producto.transgenico
+from producto, marcaProducto 
+where producto.idMarca = marcaproducto.idMarca  LIKE '%Quaker%';
+
+select producto.nombreProducto,producto.transgenico,marcaProducto.nombreMarca
+from producto,marcaProducto
+where marcaProducto.nombreMarca like '%Quaker%'
+and producto.idMarca = marcaproducto.idMarca;
+
 drop database productoTransgenico;
